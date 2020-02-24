@@ -1,0 +1,10 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: kube-creation-pipeline
+# Todo all the params
+spec:
+  tasks:
+  - name: ingress-task
+    taskRef:
+      name: ingress-task

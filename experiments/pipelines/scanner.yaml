@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: scanner-pipeline
+spec:
+  resources: 
+  - name: git-source
+    type: git
+  tasks:
+  - name: scan-it
+    taskRef:
+      name: scan-it
+    resources:
+      inputs:
+      - name: git-source
+        resource: git-source

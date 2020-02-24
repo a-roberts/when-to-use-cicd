@@ -11,10 +11,15 @@ Area with goodies to be used for Adam and Christie's talk at the CDF Summit Amst
 - Doing performance tests: make ourselves? Running stuff in a bash loop?
 - Doing unit tests: make ourselves? Augment https://github.com/tektoncd/catalog/tree/86e603cb107dddf4f83c33962983f39c2b4b851f/maven to do mvn test? But there’s nothing nice to get the output results out to visualise
 
-## Results
+## Want to run this for yourself?
 
-## Analysis (why they're good/bad with Tekton)
+See the `experiments` folder
 
-## Flow diagram
+## View our findings and analysis
 
-## All the Pipelines/Tasks/Resources etc (cheatsheet)
+See the `findings` folder
+
+## TL;DR - the flow diagram
+
+-- TODO --
+

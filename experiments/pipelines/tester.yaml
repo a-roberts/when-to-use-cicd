@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: tester-pipeline
+spec:
+  resources: 
+  - name: git-source
+    type: git
+  tasks:
+  - name: unit-test
+    taskRef:
+      name: unit-test
+    resources:
+      inputs:
+      - name: git-source
+        resource: git-source

@@ -1,0 +1,55 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: ingress-task
+  namespace: tekton-pipelines
+spec:
+  inputs:
+    params:
+    - name: Mode
+      description: Whether to create or delete an Ingress
+      default: "create"
+      type: string
+    - name: CallbackURL 
+      description: The external access URL
+      default: "listener.replaceme.nip.io"
+      type: string
+    - name: ServiceName 
+      description: The service name
+      default: "listener"
+      type: string
+    - name: ServicePort
+      description: The service port
+      default: "8080"
+      type: string
+  steps:
+  - name: create-or-delete-ingress
+    image: lachlanevenson/k8s-kubectl:latest
+    command:
+    - sh
+    args:
+    - -ce
+    - |
+      set -e
+      if [ $(inputs.params.Mode) = "create" ] ; then
+        echo "Creating the Ingress"
+        cat <<EOF | kubectl apply -f -
+        apiVersion: extensions/v1beta1
+        kind: Ingress
+        metadata:
+          name: $(inputs.params.serviceName)
+        spec:
+          rules:
+          - host: $(inputs.params.CallbackURL)
+            http:
+              paths:
+              - backend:
+                  serviceName: $(inputs.params.serviceName)
+                  servicePort: $(inputs.params.servicePort)
+      EOF
+      fi
+           
+      if [ $(inputs.params.Mode) = "delete" ] ; then
+        echo "Deleting Ingress"
+        kubectl delete ingress $(inputs.params.serviceName)
+      fi 

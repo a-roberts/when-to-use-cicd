@@ -1,0 +1,21 @@
+---
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: performance-test
+spec:
+  inputs:
+    resources:
+      - name: git-source
+        type: git
+    params:
+    - name: iterations
+      description: How many times to run the test
+      default: 10
+  steps:
+  - name: performance-test
+    image: # todo
+    command:
+    - # todo
+    args:
+    - # todo
